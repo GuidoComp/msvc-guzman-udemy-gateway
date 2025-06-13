@@ -23,6 +23,18 @@ spring:
   cloud:
     gateway:
       routes:
+      - id: oauth
+        uri: lb://oauth
+        predicates:
+          - Path=/api/security/**
+        filters:
+          - StripPrefix=2
+      - id: users
+        uri: lb://users
+        predicates:
+        - Path=/api/users/**
+        filters:
+        - StripPrefix=2
       - id: products
         uri: lb://products
         predicates:
